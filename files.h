@@ -8,7 +8,9 @@ class files
 {
 public:
     files();
-  
+    void setpathcss(std::string  & path);
+    void setpathfile(std::string  & path);
+    
     std::shared_ptr<file>  get(std::string& path_html,std::string &path,std::string &extesion);
 private:
     std::unordered_map<std::string,std::shared_ptr<file>> map_;
