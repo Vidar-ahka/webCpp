@@ -11,14 +11,13 @@ class file
 public:
     file();
     file(file  & file_);
-    file(const std::string &path,const std::string & type);
-    void load(const std::string &path,const std::string & type );
-   
+    file(const std::string &path);
+    void load(const std::string &path);
     size_t size();
     char * byte();
     bool   empty();
 private:
-    void load_t(const std::string &path,const std::string & type );
+    void load_t(const std::string &path);
     bytearray byte_;
     size_t size_;
     std::string path;

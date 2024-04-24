@@ -9,9 +9,9 @@ file ::file (file  & file_)
    this->size_ = file_.size_;
 }
 
-file::file(const std::string &path,const std::string & type)
+file::file(const std::string &path)
 {
-    load_t(path,type);
+    load_t(path);
 }
 
 /*file ::file (const std::string path)
@@ -26,11 +26,11 @@ char * file ::byte()
 {
     return byte_.data();
 }
-void file ::load(const std::string &path,const std::string & type )
+void file ::load(const std::string &path)
 {
-    load_t(path,type);
+    load_t(path);
 }
-void file ::load_t(const std::string &path,const std::string & type )
+void file ::load_t(const std::string &path )
 {
    
     try

@@ -47,6 +47,8 @@ bool server::start()
    
    
     files_ = std::make_shared<files>();  
+    files_->setpathcss(this->path_css);
+    files_->setpathfile(this->path_file);
     if(pages_save.count(this->path_html))
     {
         pages_ = pages_save[this->path_html];
@@ -150,7 +152,14 @@ bool server::init()
     }
     return true;
 }
+void  server::delete_slesh(std::string  & path)
+{
 
+    if(path[path.size()-1]!='/')
+    {
+        path.push_back('/');
+    }
+}
 void  server::setcertificate(std::string url)
 {  
     this->certificate_path = url;   
@@ -167,23 +176,16 @@ void server::setCAcertificate(std::string new_ca_certificate_path)
 }
 void server::setpathhtml(std::string path)
 {
-    if(path.empty())
-    {
-        return;
-    }
-    if(path[path.size()-1]!='/')
-    {
-        path.push_back('/');
-    }
+
     this->path_html = path;
 }
 void server::setpathcss (std::string path)
 {
-    
+    this->path_css = path;
 }
 void server::setpathfile(std::string path)
 {
-
+    this->path_css = path;
 }
 
 bool server::socketinit()

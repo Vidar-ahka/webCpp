@@ -41,6 +41,7 @@ public:
     void clientprocessing(client &cl);  
     bool init();
     bool socketinit();
+    void delete_slesh(std::string  & path);
   
     int socket_m {-1};
     int port = 3232;
@@ -51,6 +52,8 @@ public:
     std::string private_key_path ;
     std::string CA_path;
     std::string path_html;    
+    std::string path_css;     
+    std::string path_file; 
     std::unordered_map<std::string ,std::function<std::shared_ptr<httprespone>(std::shared_ptr<request>)>> forms;
     std::shared_ptr<files>  files_;
     std::shared_ptr<pages>  pages_;

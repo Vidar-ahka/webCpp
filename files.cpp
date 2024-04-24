@@ -19,18 +19,18 @@ std::shared_ptr<file> files::get(std::string & path_html,std::string &path,std::
         str.reserve(ref.size()+path.size());
         str.append(ref);
     }
-    if(path[0]=='/'&&str.back()!='/')
+    if(path[0]=='/')
     {
         str.pop_back();
     }
     str.append(path);
     if(!map_.count(str))
     {
-        std::shared_ptr<file> file_ = std::make_shared<file>(str,type);
+        std::shared_ptr<file> file_ = std::make_shared<file>(str);
         if(!file_->empty())
         {
             map_[str] = file_;
-            return file_;
+            
         }
         return  file_;
     }
