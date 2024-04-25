@@ -11,12 +11,6 @@ class pages
     
 public:
     pages();
-
-    pages(std::vector<std::string> &paths);
-
-    void  append_doc_html(std::string  path);
-    void  append_doc_html(std::string &path);
-    void  append_doc_html(std::vector<std::string> &paths);
     void  setpathhtmldir(std::string & path);
     std::shared_ptr<page> getpage(std::string &path);
 private:

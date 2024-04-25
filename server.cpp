@@ -47,8 +47,11 @@ bool server::start()
    
    
     files_ = std::make_shared<files>();  
-    files_->setpathcss(this->path_css);
+    css_ = std::make_shared<files>();
+
     files_->setpathfile(this->path_file);
+    css_->setpathfile   (this->path_css);
+    
     if(pages_save.count(this->path_html))
     {
         pages_ = pages_save[this->path_html];
@@ -57,7 +60,6 @@ bool server::start()
     {
         pages_ = std::make_shared<pages>();
         pages_->setpathhtmldir(path_html);
-
         pages_save[path_html] = pages_;  
     }
 
@@ -71,7 +73,7 @@ bool server::start()
     while (work)
     {
         
-        timeout.tv_sec = 45; // Установка времени ожидания в 1 секунду
+        timeout.tv_sec = 45; 
         timeout.tv_usec = 0;
     
          
@@ -111,16 +113,24 @@ void  server::clientprocessing(client &cl)
 {
     
     
-    
+
     std::shared_ptr<request> request_  =  cl.readrequest();
+    std::shared_ptr<httprespone>  http_respone;
     if(request_->getextension() == "html"&&forms.count(request_->url))
     {
         cl.write(forms[request_->url](request_));
     }
+    else if(request_->getextension() == "css")
+    {
+        std::shared_ptr<file> file_ = css_->get(request_->url);             
+        cl.write(std::make_shared<httpresponefile>(200,request_->gettype(),request_->getextension()));          
+        
+    }
     else
     { 
-        std::shared_ptr<file> file_ = files_->get(path_html,request_->url,request_->gettype());             
+        std::shared_ptr<file> file_ = files_->get(request_->url);             
         cl.write(std::make_shared<httpresponefile>(200,request_->gettype(),request_->getextension(),file_));          
+    
     }
 }
 
@@ -152,7 +162,8 @@ bool server::init()
     }
     return true;
 }
-void  server::delete_slesh(std::string  & path)
+
+void  server::add_slesh(std::string  & path)
 {
 
     if(path[path.size()-1]!='/')
@@ -176,16 +187,18 @@ void server::setCAcertificate(std::string new_ca_certificate_path)
 }
 void server::setpathhtml(std::string path)
 {
-
     this->path_html = path;
+    add_slesh(this->path_html);
 }
 void server::setpathcss (std::string path)
 {
     this->path_css = path;
+    add_slesh(this->path_css);
 }
 void server::setpathfile(std::string path)
 {
-    this->path_css = path;
+    this->path_file = path;
+    add_slesh(this->path_file);
 }
 
 bool server::socketinit()

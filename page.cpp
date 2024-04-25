@@ -1,6 +1,6 @@
 #include"page.h"
 
-page::page(std::string path)
+page::page(std::string & path)
 {
     std::fstream file;
     file.open(path.c_str());

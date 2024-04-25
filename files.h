@@ -8,15 +8,12 @@ class files
 {
 public:
     files();
-    void setpathcss(std::string  & path);
-    void setpathfile(std::string  & path);
-    
-    std::shared_ptr<file>  get(std::string& path_html,std::string &path,std::string &extesion);
+    std::shared_ptr<file>  get(std::string &path);
+    void setpathfile(std::string & path);
 private:
+    std::string path_file;
     std::unordered_map<std::string,std::shared_ptr<file>> map_;
     bool absolutepath(std::string &str);
-    std::string path_css;
-    std::string path_file;
-    
+    std::string  combinepath(std::string & path);
 };
 #endif  

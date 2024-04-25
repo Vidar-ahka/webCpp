@@ -14,7 +14,7 @@ class page
     
 public:
     page();
-    page(std::string path);
+    page(std::string &path);
     size_t size();
     std::list<std::shared_ptr<para>> &  getlist();
     bool empty();

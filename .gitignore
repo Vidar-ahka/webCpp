@@ -1,7 +1,9 @@
 build
 cert
 template 
-images
+file
 static
 main.cpp
 texte.txt
+.vscode
+

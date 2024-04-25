@@ -3,49 +3,49 @@ files::files()
 {
 
 }
-
-std::shared_ptr<file> files::get(std::string & path_html,std::string &path,std::string &type)
+void files::setpathfile(std::string & path)
+{
+    this->path_file =  path;
+    if(this->path_file.back()!='/')
+    {
+        this->path_file.push_back('/');
+    }
+}
+std::shared_ptr<file> files::get(std::string &path)
 {
     if(path.empty())
     {
         return std::make_shared<file>();
     }
-   
-    std::string str;
-
-    if(!absolutepath(path))
+    if(map_.count(path))
     {
-        std::string & ref = type == "css" ? path_css : path_file;
-        str.reserve(ref.size()+path.size());
-        str.append(ref);
+        return  map_[path];
     }
-    if(path[0]=='/')
+    std::shared_ptr<file> file_ = std::make_shared<file>(absolutepath(path)? path : combinepath(path));
+    if(!file_->empty())
+    {
+        map_[path] = file_;
+            
+    }
+    return  file_;
+  
+}
+
+std::string  files::combinepath(std::string & path)
+{
+    std::string str;
+    str.reserve(path_file.size()+path.size());
+    str.append(path_file);
+    if(path.front()=='/')
     {
         str.pop_back();
     }
     str.append(path);
-    if(!map_.count(str))
-    {
-        std::shared_ptr<file> file_ = std::make_shared<file>(str);
-        if(!file_->empty())
-        {
-            map_[str] = file_;
-            
-        }
-        return  file_;
-    }
-    return  map_[str];
+    
+    return str;
 }
 
-void files::setpathcss(std::string  & path)
-{
-    this->path_css = path;
-}
-void files::setpathfile(std::string  & path)
-{
-    this->path_file = path;
-}
-    
+
 bool files::absolutepath(std::string &str)
 {
     return realpath(str.c_str(),nullptr) != NULL;

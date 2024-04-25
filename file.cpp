@@ -13,11 +13,6 @@ file::file(const std::string &path)
 {
     load_t(path);
 }
-
-/*file ::file (const std::string path)
-{
-    load_t(path);
-}*/
 size_t file ::size()
 {
     return size_;
@@ -37,7 +32,6 @@ void file ::load_t(const std::string &path )
     {
 
     std::ifstream file;
-    
     file.open(path.c_str(),std::ifstream::binary);
     
     if(!file.is_open())
