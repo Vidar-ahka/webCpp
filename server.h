@@ -8,11 +8,15 @@
 #include"httprespone.h"
 #include"experimental/filesystem"
 #include"files.h"
-#include"atomic"
 #include"csignal"
 #include"sys/select.h"
 #include"future"
+
+namespace WebCpp
+{
+
 namespace fs = std::experimental::filesystem;
+
 
 class server{
 
@@ -61,6 +65,7 @@ public:
 
 };
 
+}
 
 
 #endif

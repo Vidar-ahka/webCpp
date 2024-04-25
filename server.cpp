@@ -1,4 +1,6 @@
 #include"server.h"
+namespace WebCpp
+{
 
 bool server::work = true;
 std::unordered_map<std::string , std::shared_ptr<pages>> server::pages_save;
@@ -291,4 +293,6 @@ std::shared_ptr<httprespone> server::render(std::string path)
 void server:: end(int num)
 {
     server::work == num!=SIGHUP;
+}
+
 }

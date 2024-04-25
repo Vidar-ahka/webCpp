@@ -7,3 +7,5 @@ main.cpp
 texter
 .vscode
 .goutputstream-FB16F2
+database.h
+database.cpp
