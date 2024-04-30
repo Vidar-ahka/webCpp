@@ -49,8 +49,7 @@ bool server::start()
    
    
     files_ = std::make_shared<files>();  
-    css_ = std::make_shared<files>();
-
+    css_   = std::make_shared<files>();
     files_->setpathfile(this->path_file);
     css_->setpathfile   (this->path_css);
     
@@ -61,7 +60,7 @@ bool server::start()
     else 
     {
         pages_ = std::make_shared<pages>();
-        pages_->setpathhtmldir(path_html);
+        pages_->setpathfile(path_html);
         pages_save[path_html] = pages_;  
     }
 
@@ -120,20 +119,15 @@ void  server::clientprocessing(client &cl)
     std::shared_ptr<httprespone>  http_respone;
     if(request_->getextension() == "html"&&forms.count(request_->url))
     {
-        cl.write(forms[request_->url](request_));
-    }
-    else if(request_->getextension() == "css")
-    {
-        std::shared_ptr<file> file_ = css_->get(request_->url);             
-        cl.write(std::make_shared<httpresponefile>(200,request_->gettype(),request_->getextension()));          
-        
+        http_respone = forms[request_->url](request_);
     }
     else
-    { 
-        std::shared_ptr<file> file_ = files_->get(request_->url);             
-        cl.write(std::make_shared<httpresponefile>(200,request_->gettype(),request_->getextension(),file_));          
-    
+    {       
+        http_respone = 
+        std::make_shared<httpresponefile>(200,request_->gettype(),request_->getextension()
+        , request_->getextension()=="css"?css_->get(request_->url) : files_->get(request_->url));          
     }
+    cl.write(http_respone);
 }
 
 bool server::init()
@@ -280,7 +274,6 @@ std::shared_ptr<httprespone> server::render(std::string path)
         return  std::make_shared<httpresponehtlm>();
     }
     std::shared_ptr<httpresponehtlm> http = std::make_shared<httpresponehtlm>(200,"text","html");
-
     http->reserve(page_->size());
     for(auto &it: page_->getlist())
     {

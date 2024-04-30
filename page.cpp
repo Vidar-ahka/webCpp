@@ -1,14 +1,17 @@
 #include"page.h"
-
+page::page(){}
 page::page(std::string & path)
 {
     std::fstream file;
     file.open(path.c_str());
-    
+   
+
     if(!file.is_open())
     {
         return;
-    }    
+    } 
+    
+      
     open_file = true;
     file.seekg(0,std::ios::beg);       
     size_ = 0;

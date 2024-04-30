@@ -2,7 +2,7 @@
 #define SERVER_H
 
 #include"iostream"
-#include"pages.h"
+
 #include"client.h"
 #include"functional"
 #include"httprespone.h"

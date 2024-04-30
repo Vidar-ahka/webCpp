@@ -22,8 +22,6 @@ set(SOURCE_FILES
     database.cpp
     page.h
     page.cpp
-    pages.h
-    pages.cpp
     client.h
     client.cpp
     httprespone.h
