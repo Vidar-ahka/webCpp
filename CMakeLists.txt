@@ -10,22 +10,22 @@ include_directories(${OPENSSL_INCLUDE_DIR})
 
 set(SOURCE_FILES
    
-    server.h
-    server.cpp
-    request.h
-    request.cpp
-    page.h
-    page.cpp
-    client.h
-    client.cpp
-    httprespone.h
-    httprespone.cpp
-    file.h
-    file.cpp
-    files.h
-    files.cpp
-    bytearray.h
-    bytearray.cpp
+    src/server.h
+    src/server.cpp
+    src/request.h
+    src/request.cpp
+    src/page.h
+    src/page.cpp
+    src/client.h
+    src/client.cpp
+    src/httprespone.h
+    src/httprespone.cpp
+    src/file.h
+    src/file.cpp
+    src/files.h
+    src/files.cpp
+    src/bytearray.h
+    src/bytearray.cpp
 
 )
 add_library(webcpp ${SOURCE_FILES})
